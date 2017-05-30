@@ -1,0 +1,30 @@
+{
+    "manifest_version": 2,
+    "name": "Inspector Gadget",
+    "version": "0.1",
+    "icons": {
+        "128": "icon.png"
+    },
+    "browser_action": {
+        "default_icon": "icon1.png"
+    },
+    // js files
+    "background": {
+        "scripts": [
+            "background.js"
+        ]
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "<all_urls>"
+            ],
+            "js": [
+                "content.js"
+            ]
+        }
+    ],
+    "web_accessible_resources": [
+        "inspector_gadget.js"
+    ]
+}
