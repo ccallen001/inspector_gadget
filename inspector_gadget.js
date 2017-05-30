@@ -64,15 +64,23 @@ document.body.insertAdjacentHTML(`beforeend`, `
 `);
 
 // assign button to variable
-let ig = document.getElementById(`inspector_gadget`);
+let ig = document.getElementById(`inspector_gadget`),
+    rot = 0;
 
 // add transition effects
-ig.addEventListener(`mouseover`, ev => ig.style.left = `32px`);
-ig.addEventListener(`mousedown`, ev => ig.style.transform = `scale(.95)`);
-[`mouseup`, `mouseleave`].forEach(ea => ig.addEventListener(ea, ev => ig.style.transform = `scale(1)`));
+ig.addEventListener(`mouseover`, ev => {
+    ig.style.left = `32px`;
+    ig.style.transform = `rotate(${rot}deg) scale(1.05)`;
+});
+ig.addEventListener(`mousedown`, ev => ig.style.transform = `rotate(${rot}deg) scale(.95)`);
+[`mouseup`, `mouseleave`].forEach(ea => ig.addEventListener(ea, ev => ig.style.transform = `rotate(${rot}deg) scale(1)`));
 
 // _smtr.push()
+let deg = 0;
 ig.addEventListener(`click`, ev => {
+    rot -= 360;
+    ig.style.transform = `rotate(${rot}deg) scale(1.05)`;
+
     let srObjList = window._smtr && typeof window._smtr.push === `function` && window._smtr.push([`getSrObjList`]) || undefined,
         visitorObj = window._smtr && typeof window._smtr.push === `function` && window._smtr.push([`getVisitorObj`]) || undefined;
 
