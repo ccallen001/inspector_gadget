@@ -5,7 +5,7 @@
 
 // window.console.log(_smtr);
 
-// BULK OF THE OPERATIONAL CODE IS HERE!!! don't worry about the other files
+// BULK OF THE OPERATIONAL CODE IS HERE!!! don't worry about the other files.. unless you want to
 
 //                                                            _..__
 //                                                          .'     '.
@@ -24,13 +24,13 @@
 //                                              /    |   /  '._/_\_.'  \   :   `\
 //                                             /     .  `---;"""""'-----`  .     \
 
-// apply button to page
+// insert button at bottom left of page
 document.body.insertAdjacentHTML(`beforeend`, `
     <div 
         id ="inspector_gadget"
         style="        
                 position: fixed;
-                bottom: 24px; 
+                bottom: 12px; 
                 left: -32px;
                 z-index: 1000000;
                 width: 64px;
@@ -63,36 +63,67 @@ document.body.insertAdjacentHTML(`beforeend`, `
     </div>
 `);
 
-// assign button to variable
-let ig = document.getElementById(`inspector_gadget`),
-    rot = 0;
+// get button and assign to variable
+const ig = document.getElementById(`inspector_gadget`);
+
+// secret song
+const seq = [`i`, `g`];
+let i_seq = 0;
+
+function listen4Seq(ev) {
+    //console.log(ev.key.toLowerCase(), seq[i_seq]);
+
+    if (ev.key.toLowerCase() === seq[i_seq]) {
+        i_seq++;
+
+        if (i_seq === seq.length) {
+            document.body.insertAdjacentHTML(`beforeend`, `
+                <iframe 
+                    id="secret_song" 
+                    src="https://www.youtube.com/embed/d1wdMrpj_p8?autoplay=1" 
+                    style="display: none;" 
+                    width="854" 
+                    height="480" 
+                    frameborder="0" 
+                    allowfullscreen>
+                </iframe>
+            `);
+        }
+    } else { i_seq = 0; }
+}
+
+ig.addEventListener(`mouseover`, ev => window.addEventListener(`keypress`, listen4Seq));
+ig.addEventListener(`mouseleave`, ev => window.removeEventListener(`keypress`, listen4Seq));
+
 
 // add transition effects
 ig.addEventListener(`mouseover`, ev => {
-    ig.style.left = `32px`;
+    ig.style.left = `16px`;
     ig.style.transform = `rotate(${rot}deg) scale(1.05)`;
 });
 ig.addEventListener(`mousedown`, ev => ig.style.transform = `rotate(${rot}deg) scale(.95)`);
 [`mouseup`, `mouseleave`].forEach(ea => ig.addEventListener(ea, ev => ig.style.transform = `rotate(${rot}deg) scale(1)`));
 
-// _smtr.push()
-let deg = 0;
+// _smtr.push() functionality
+let rot = 0; // <-- another transition effect variable
 ig.addEventListener(`click`, ev => {
+    // transition effect
     rot -= 360;
     ig.style.transform = `rotate(${rot}deg) scale(1.05)`;
 
-    let srObjList = window._smtr && typeof window._smtr.push === `function` && window._smtr.push([`getSrObjList`]) || undefined,
+    // pushing to the console
+    const srObjList = window._smtr && typeof window._smtr.push === `function` && window._smtr.push([`getSrObjList`]) || undefined,
         visitorObj = window._smtr && typeof window._smtr.push === `function` && window._smtr.push([`getVisitorObj`]) || undefined;
 
     if (srObjList) {
         // visitor obj
         console.log(visitorObj);
 
-        //each one
+        // each item of the obj list 
         srObjList.forEach(ea => {
             console.log(ea.passed || `no objects passed`);
         });
     } else {
-        console.log(`%cERROR:`, `color: red; font-weight: bold;`, `!!! _smtr not found !!!`);
+        console.log(`%cERROR:`, `color: red;`, `!!! _smtr not found !!!`);
     }
 });

@@ -15,19 +15,29 @@ chrome.runtime.onMessage.addListener(
     }
 );
 
+let showing = true;
 // this happens when the icon is clicked
 chrome.runtime.onMessage.addListener(
     function (request, sender, sendResponse) {
         if (request.message === "clicked_browser_action") {
-            //
+            const ig = document.getElementById(`inspector_gadget`);
+            // hides and shows the button
+            if (showing) {
+                ig.style.display = `none`;
+                ig.style.left = `-32px`;
+            } else {
+                ig.style.display = `block`;
+            }
+
+            showing = !showing;
         }
     }
 );
 
-// adds the window_reader.js script for reading window keys/variables
+// adds the inspector_gadget.js script for reading window keys/variables
 function injectScript(file, node) {
-    let n = document.getElementsByTagName(node)[0];
-    let s = document.createElement('script');
+    const n = document.getElementsByTagName(node)[0];
+    const s = document.createElement('script');
     s.setAttribute('type', 'text/javascript');
     s.setAttribute('src', file);
     n.appendChild(s);

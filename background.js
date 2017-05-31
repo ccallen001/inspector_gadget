@@ -8,17 +8,16 @@
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
     if (changeInfo.status == `complete` && tab.active) {
         chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-            let activeTab = tabs[0];
+            const activeTab = tabs[0];
             chrome.tabs.sendMessage(activeTab.id, { message: `page_loaded` });
         });
     }
 })
 
-// called when the user clicks on the browser action.
+// called when the user clicks on the browser action (the icon next to the url)
 chrome.browserAction.onClicked.addListener(function (tab) {
-    // send a message to the active tab
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-        let activeTab = tabs[0];
+        const activeTab = tabs[0];
         chrome.tabs.sendMessage(activeTab.id, { message: `clicked_browser_action` });
     });
 });
