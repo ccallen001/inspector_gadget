@@ -1,7 +1,8 @@
 'use strict';
 
 // inspector_gadget.js
-// reads the window keys/variables on the page
+
+// reads the window keys/variables on the page and performs the 'heavy lifting'
 
 // window.console.log(_smtr);
 
@@ -24,11 +25,15 @@
 //                                              /    |   /  '._/_\_.'  \   :   `\
 //                                             /     .  `---;"""""'-----`  .     \
 
+// local storage to check and preserve hide/show state of the button
+const gogoGadget = window.localStorage.getItem(`gogoGadget`) ? `block` : `none`;
+
 // insert button at bottom left of page
 document.body.insertAdjacentHTML(`beforeend`, `
     <div 
         id ="inspector_gadget"
-        style="        
+        style=" 
+                display: ${gogoGadget};       
                 position: fixed;
                 bottom: 12px; 
                 left: -32px;
@@ -66,7 +71,7 @@ document.body.insertAdjacentHTML(`beforeend`, `
 // get button and assign to variable
 const ig = document.getElementById(`inspector_gadget`);
 
-// secret song
+// SECRET SONG!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! :)
 const seq = [`i`, `g`];
 let i_seq = 0;
 
@@ -117,13 +122,17 @@ ig.addEventListener(`click`, ev => {
 
     if (srObjList) {
         // visitor obj
+        console.log(` `);
         console.log(visitorObj);
 
         // each item of the obj list 
         srObjList.forEach(ea => {
             console.log(ea.passed || `no objects passed`);
         });
+        console.log(` `);
     } else {
+        console.log(` `);
         console.log(`%cERROR:`, `color: red;`, `!!! _smtr not found !!!`);
+        console.log(` `);
     }
 });
