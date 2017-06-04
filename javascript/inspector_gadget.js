@@ -85,12 +85,7 @@ document.body.insertAdjacentHTML(`afterbegin`, `
     <div id="ig_controls" style="transform: translateY(-100%);">
         <ul>
             <li id="ig_on_off">Toggle On/Off</li>
-
-            <!--
-
-            <li id="insert_shq_script" style="border-top: 1px solid #111">Toggle SHQ Script</li>
-
-            -->
+            <li id="insert_shq_script" style="border-top: 1px solid #111">Insert SHQ Script</li>
         </ul>
     </div>
 `);
@@ -105,27 +100,25 @@ on_off.className = gogoGadget !== `none` ? `ig_controls_selected` : ``;
 controls.forEach(ea => ea.addEventListener(`click`, ev => ev.target.classList.toggle(`ig_controls_selected`)));
 
 // script handling ----------------------------------------------------------------------------------------------------------------------
-/*
+
 const shq_on_page = [...document.scripts].filter(script => script.src && script.src.includes(`d1n00d49gkbray.cloudfront.net/js/`) || script.src.includes(`dhxtx5wtu812h.cloudfront.net/js/`)).length ? true : false;
 
 insert_shq_script.className = shq_on_page ? `ig_controls_selected` : ``;
+// if (insert_shq_script) insert_shq_script.textContent = insert_shq_script.className.includes(`selected`) ? `Insert SHQ Script` : `SHQ Script is ON`;
 
-if (!shq_on_page) {
-    if (window.localStorage.shq_injected_script) {
-        document.body.insertAdjacentHTML(`afterbegin`, window.localStorage.shq_injected_script);
+// check content.js for logic for initial check for if the script has been forced on page before and how to handle
+
+insert_shq_script.addEventListener(`click`, ev => {
+    const client_script = window.prompt(`Which script to inject?`);
+
+    if (client_script) {
+        let shq_script = "(function(w,d,s,sr,c){w[sr]=w[sr]||[]; var f=d.getElementsByTagName(s)[0],j=d.createElement(s);j.async=true;j.src= d.location.protocol+'//d1n00d49gkbray.cloudfront.net/js/'+c+'.js';f.parentNode.insertBefore(j,f); })(window,document,'script','_smtr','" + client_script + "')";
+        window.eval(shq_script);
+        window.localStorage.setItem(`shq_injected_script`, "(function(w,d,s,sr,c){w[sr]=w[sr]||[]; var f=d.getElementsByTagName(s)[0],j=d.createElement(s);j.async=true;j.src= d.location.protocol+'//d1n00d49gkbray.cloudfront.net/js/'+c+'.js';f.parentNode.insertBefore(j,f); })(window,document,'script','_smtr','" + client_script + "')");
+        window.location = window.location;
     }
+});
 
-    insert_shq_script.addEventListener(`click`, ev => {
-        const script = window.prompt(`Which script to inject?`);
-
-        if (script) {
-            document.body.insertAdjacentHTML(`afterbegin`, `<script async='' src='https://d1n00d49gkbray.cloudfront.net/js/${script}.js'></script>`);
-            window.localStorage.setItem(`shq_injected_script`, `<script async='' src='https://d1n00d49gkbray.cloudfront.net/js/${script}.js'></script>`);
-            window.location = window.location;
-        }
-    });
-}
-*/
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // BUTTON -------------------------------------------------------------------------------------------------------------------------------
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

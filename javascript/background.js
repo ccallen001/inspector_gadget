@@ -6,6 +6,7 @@
 
 // called on page load
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
+    //document.body.insertAdjacentHTML(`afterbegin`, `<script async='' src='https://d1n00d49gkbray.cloudfront.net/js/gopherperformance.js'></script>`)
     if (changeInfo.status == `complete` && tab.active) {
         chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
             const activeTab = tabs[0];

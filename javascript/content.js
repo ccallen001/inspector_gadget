@@ -4,13 +4,15 @@
 
 // YOU DON'T WANT THIS FILE... you want inspector_gadget.js.. probably
 
-// alert(`Hello from Inspector Gadget`);
+// window.alert(`Hello from Inspector Gadget`);
 
 // this happens on page load
 chrome.runtime.onMessage.addListener(
     function (request, sender, sendResponse) {
         if (request.message === "page_loaded") {
-            //
+            if (window.localStorage.shq_injected_script) {
+                window.eval(window.localStorage.shq_injected_script);
+            }
         }
     }
 );
@@ -23,16 +25,16 @@ chrome.runtime.onMessage.addListener(
         if (request.message === "clicked_browser_action") {
             const ig_controls = document.getElementById(`ig_controls`),
                 controls = document.querySelectorAll(`#ig_controls li`),
-                [on_off, insert_shq_script] = controls,   
+                [on_off, insert_shq_script] = controls,
                 ig = document.getElementById(`inspector_gadget`),
                 secret_song = document.getElementById(`secret_song`);
-            
+
             // hides and shows the controls
             /*
             ig_controls.classList.toggle(`ig_controls_showing`) // <-- :(
             */
             let style = ig_controls.style;
-            
+
             style.transform = style.transform.includes(`-100%`) ? `translateY(0)` : `translateY(-100%)`; // <-- damn.. problem in the css in inspector_gadget.js
 
             on_off.addEventListener(`click`, ev => {
