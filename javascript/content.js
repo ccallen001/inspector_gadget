@@ -12,6 +12,7 @@ chrome.runtime.onMessage.addListener(
         if (request.message === "page_loaded") {
             if (window.localStorage.shq_injected_script) {
                 window.eval(window.localStorage.shq_injected_script);
+                document.getElementById(`insert_shq_script`).className = `ig_controls_selected`;
             }
         }
     }

@@ -224,12 +224,13 @@ ig.addEventListener(`click`, ev => {
     if (srObjList) {
         // visitor obj
         console.log(` `);
-        console.log(visitorObj);
+        console.log(visitorObj || (`%cERROR: %c!!! Visistor Object not found !!!`, `color: red; font-weight: bold;`, `color: violet;`));
 
-        // each item of the obj list 
-        srObjList.forEach(ea => {
-            console.log(ea.passed || `no objects passed`);
-        });
+        // each item of the obj list
+        if (srObjList.forEach)
+            srObjList.forEach(ea => {
+                console.log(ea.passed || `no objects passed`);
+            });
         console.log(` `);
     } else {
         console.log(` `);
