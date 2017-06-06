@@ -37,7 +37,7 @@ const gogoGadget = window.localStorage.getItem(`gogoGadget`) ? `block` : `none`;
 document.body.insertAdjacentHTML(`afterbegin`, `
     <style>
         #ig_controls {
-            position: absolute;
+            position: fixed;
             top: 0;
             right: 0;
             z-index: 1000000;
