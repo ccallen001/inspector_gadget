@@ -112,8 +112,10 @@ insert_shq_script.addEventListener(`click`, ev => {
     const client_script = window.prompt(`Which script to inject?`);
 
     if (client_script) {
+        /* IF IT'S NOT WORKING... CHANGE /<clientfilename>/ TO /js/ */
         let shq_script = "(function(w,d,s,sr,c){w[sr]=w[sr]||[]; var f=d.getElementsByTagName(s)[0],j=d.createElement(s);j.async=true;j.src= d.location.protocol+'//d1n00d49gkbray.cloudfront.net/js/'+c+'.js';f.parentNode.insertBefore(j,f); })(window,document,'script','_smtr','" + client_script + "')";
         window.eval(shq_script);
+        /* IF IT'S NOT WORKING... CHANGE /<clientfilename>/ TO /js/ */
         window.localStorage.setItem(`shq_injected_script`, "(function(w,d,s,sr,c){w[sr]=w[sr]||[]; var f=d.getElementsByTagName(s)[0],j=d.createElement(s);j.async=true;j.src= d.location.protocol+'//d1n00d49gkbray.cloudfront.net/js/'+c+'.js';f.parentNode.insertBefore(j,f); })(window,document,'script','_smtr','" + client_script + "')");
         window.location = window.location;
     }
